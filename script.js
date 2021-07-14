@@ -32,6 +32,11 @@ layer.width = w;
 layer.height = h;
 
 var cloneCat = false;
+var touched = false;
+
+window.addEventListener("click",()=>{
+    touched = true;
+})
 
 var video = document.createElement("video");
 var guy = document.createElement("video");
@@ -52,6 +57,7 @@ goC.onclick = () =>{
         pbs += 0.5;
     }else{
         alert("They both TIERD...");
+        count = 1;
         goC.innerHTML = "GO CRAZY";
         size = w;
         pbs = 0.5;
@@ -62,7 +68,7 @@ goC.onclick = () =>{
 }
 
 function draw(){
-    if(v && g){
+    if(v && g && touched){
         lc.fillRect(0, 0, w, h);
         lc.drawImage(guy, 0, 0, w, h);
         c.clearRect(0, 0, w, h);
@@ -96,9 +102,18 @@ function draw(){
                 }
             }
         }
-    }else{
+    }
+    if(!g && !v){
+        c.clearRect(0, 0, w, h);
         c.font = "20px verdana";
         c.fillText("Video Loading....", 0, h/2)
+    }
+    if(g && v && !touched){
+        c.fillStyle = "black";
+        c.fillRect(0, 0, w, h);
+        c.font = "30px verdana";
+        c.fillStyle = "green";
+        c.fillText("TOUCH ANYWHERE :)", 0, h/2)
     }
 
 }
